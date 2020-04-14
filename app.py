@@ -33,3 +33,22 @@ def IndexRoute():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+@app.route("/data")
+def choroDict():
+    ''' This function returns JSON of data '''
+    session = Session(engine)
+    results = session.query(Countries.country, Countries.beer_servings, Countries.spirit_servings, Countries.wine_servings, Countries.total_litres_of_pure_alcohol).all()
+    session.close()
+
+    all_data = []
+    for country, beer_servings, spirit_servings, wine_servings, total_litres_of_pure_alcohol in results:
+        dict = {}
+        dict["country"] = country
+        dict["beer_servings"] = beer_servings
+        dict["spirit_servings"] = spirit_servings
+        dict["wine_servings"] = wine_servings
+        dict["total_litres_of_pure_alcohol"] = total_litres_of_pure_alcohol
+        all_data.append(dict)
+
+    return jsonify(all_data)
