@@ -41,7 +41,5 @@ d3.json("/data").then(function (data) {
 
     var layout= {barmode: 'group'};
 
-    Plotly.newPlot("plot", data, layout);
+    Plotly.newPlot("plot1", data, layout);
 });
-
-d3.selectAll("#selDataset").on("change", updatePlotly);

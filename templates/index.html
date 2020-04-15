@@ -6,6 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>World Alcohol Consumption</title>
 
+  <!-- Favicon for our website (right now it only works with liveserver-->
+  <link rel="shortcut icon" href="{{ url_for('static', filename='beer_favicon.png') }}" />
+
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
   
@@ -14,24 +17,32 @@
 
   <!-- Import Plotly-->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 </head>
 <body>
 
   <!-- The div that holds our heatmap -->
   <div id="heatmap"></div>
 
-  <!-- Placeholder for a plot -->
-  <div id="plot"></div>
+  <!-- The div that holds the first plot -->
+  <div id="plot1"></div>
 
-  
+  <!-- The div that holds the second plot -->
+  <div id="plot2"></div>
+
+  <select id="selDataset">
+    <option value="dataset1">DataSet1</option>
+    <option value="dataset2">DataSet2</option>
+  </select>
+
   <!-- Leaflet JavaScript -->
   <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
   <!-- D3 JavaScript -->
-  <script type="text/javascript" src="https://d3js.org/d3.v5.js"></script>
+  <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
   <!-- Our JavaScript -->
   <script type="text/javascript" src="../static/js/jakeLogic.js"></script>
   <script type="text/javascript" src="../static/js/enriqueLogic.js"></script>
+  <script type="text/javascript" src="../static/js/testLogic.js"></script>
 
-  <button type="button" onclick="myFunction()">Try it</button>
 </body>
 </html>
