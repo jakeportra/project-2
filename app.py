@@ -31,9 +31,6 @@ def IndexRoute():
     webpage = render_template("index.html")
     return webpage
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 @app.route("/data")
 def choroDict():
     ''' This function returns JSON of data '''
@@ -52,3 +49,6 @@ def choroDict():
         all_data.append(dict)
 
     return jsonify(all_data)
+
+if __name__ == '__main__':
+    app.run(debug=True)
