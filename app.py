@@ -72,5 +72,10 @@ def choroDict():
 
     return jsonify(geo_data)
 
+@app.route("/country_data")
+def countryData():
+    something = "nothing"
+    return something
+
 if __name__ == '__main__':
     app.run(debug=True)

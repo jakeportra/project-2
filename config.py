@@ -1,0 +1,1 @@
+mapboxAccessToken = pk.eyJ1IjoiamFrZXBvcnRyYSIsImEiOiJjazhnajdhNnUwMGN3M21waWhsNHZlMGtoIn0.8cBv2T4YFUYzyZX-Au_2nA

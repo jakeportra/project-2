@@ -4,13 +4,33 @@ var myMap = L.map("map", {
   zoom: 8
 });
 
+mapboxAccessToken = "pk.eyJ1IjoiamFrZXBvcnRyYSIsImEiOiJjazhnajdhNnUwMGN3M21waWhsNHZlMGtoIn0.8cBv2T4YFUYzyZX-Au_2nA";
 // Adding tile layer
-L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+L.tileLayer(`https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${mapboxAccessToken}`, {
+  id: "mapbox/light-v9",  
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-  maxZoom: 18,
-  id: "mapbox.light",
-  accessToken: API_KEY
+  tileSize: 512,
+  zoomOffset: -1
 }).addTo(myMap);
+
+L.geoJson(countries.geo.json).addTo(myMap);
+
+function highlightFeature(e) {
+  var layer = e.target;
+
+  layer.setStyle({
+      weight: 5,
+      color: '#666',
+      dashArray: '',
+      fillOpacity: 0.7
+  });
+
+  if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+      layer.bringToFront();
+  }
+}
+
+
 
 
 // Grab data with d3
