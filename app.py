@@ -1,5 +1,6 @@
+import pandas as pd
 import numpy as np
-
+import json
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -35,7 +36,7 @@ def choroDict():
     results = session.query(Countries.country, Countries.beer_servings, Countries.spirit_servings, Countries.wine_servings, Countries.total_litres_of_pure_alcohol).all()
     session.close()
 
-    all_data = []
+    country_data = []
     for country, beer_servings, spirit_servings, wine_servings, total_litres_of_pure_alcohol in results:
         dict = {}
         dict["country"] = country
@@ -43,9 +44,33 @@ def choroDict():
         dict["spirit_servings"] = spirit_servings
         dict["wine_servings"] = wine_servings
         dict["total_litres_of_pure_alcohol"] = total_litres_of_pure_alcohol
-        all_data.append(dict)
+        country_data.append(dict)
 
-    return jsonify(all_data)
+    with open('countries.geo.json') as f:
+        geo_data = json.load(f)
+
+    list_of_countries = []
+    for d in country_data:
+        name = d["country"]
+        list_of_countries.append(name)
+
+    for feature in geo_data["features"]:
+        country_name_geo = feature['properties']['name']
+        if country_name_geo in list_of_countries:
+            for country in country_data:
+                country_name_data = country["country"]
+                if country_name_geo == country_name_data:
+                    beer_servings = country["beer_servings"]
+                    wine_servings = country["wine_servings"]
+                    spirit_servings = country["spirit_servings"]
+                    total_litres_of_pure_alcohol = country["total_litres_of_pure_alcohol"]
+                
+                    feature["properties"].update({"beer_servings" : beer_servings})
+                    feature["properties"].update({"wine_servings" : wine_servings})
+                    feature["properties"].update({"spirit_servings" : spirit_servings})
+                    feature["properties"].update({"total_litres_of_pure_alcohol" : total_litres_of_pure_alcohol})
+
+    return jsonify(geo_data)
 
 if __name__ == '__main__':
     app.run(debug=True)
