@@ -14,8 +14,9 @@ d3.json("/data").then(function (data) {
     var spiritServings = data.map(data => data.spirit_servings);
     var total_liters = data.map(data => data.total_litres_of_pure_alcohol);
 
-    var country_list = []
-    var total_list = []
+    Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
+        color: '#000000'
+    });
 
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
