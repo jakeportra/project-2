@@ -422,12 +422,8 @@ d3.json("/data").then(function (data) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero: true                        
-                    }
-                }],
-                xAxes: [{
-                    ticks: {
-                        autoSkip: false
+                        beginAtZero: true,
+                        autoSkip: false                        
                     }
                 }]
             }

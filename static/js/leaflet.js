@@ -1,6 +1,6 @@
 // Creating map object
 var thunderforestToken = "0410bfa706aa490f8370e4bbb0b1d202"
-var map = L.map('map').setView([0, 0], 2.5);
+var map = L.map('map').setView([25, 0], 2.5);
 
 var Thunderforest_Outdoors = L.tileLayer('https://{s}.tile.thunderforest.com/outdoors/{z}/{x}/{y}.png?apikey={apikey}', {
 	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
