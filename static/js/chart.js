@@ -14,6 +14,53 @@ d3.json("/data").then(function (data) {
     var spiritServings = data.map(data => data.spirit_servings);
     var total_liters = data.map(data => data.total_litres_of_pure_alcohol);
 
+    var beerSum = beerServings.reduce(function(a,b){
+        return a + b;
+    }, 0);
+
+    var wineSum = wineServings.reduce(function(a,b){
+        return a + b;
+    }, 0);
+
+    var spiritSum = spiritServings.reduce(function(a,b){
+        return a + b;
+    }, 0);
+
+    console.log(beerSum)
+    console.log(wineSum)
+    console.log(spiritSum)
+
+    pieData = {
+        datasets: [{
+            label: 'Most Popular Types of Alcohol',
+            data: [beerSum, wineSum, spiritSum],
+            backgroundColor: [
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)'
+                
+            ]
+        }],
+
+        labels: [
+            'Beer',
+            'Wine',
+            'Spirits'
+        ]
+        
+    };
+
+    var ctx = document.getElementById('boozePie').getContext('2d');
+    var boozePie = new Chart(ctx, {
+        type: 'pie',
+        data: pieData        
+    });
+
     Chart.helpers.merge(Chart.defaults.global.plugins.datalabels, {
         color: '#000000'
     });
