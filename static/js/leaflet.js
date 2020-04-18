@@ -6,7 +6,7 @@ var Thunderforest_Outdoors = L.tileLayer('https://{s}.tile.thunderforest.com/out
 	attribution: '&copy; <a href="http://www.thunderforest.com/">Thunderforest</a>, &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	apikey: thunderforestToken,
     maxZoom: 22,
-    minZoom: 2.5
+    minZoom: 3
 }).addTo(map);
 
 // Query the endpoint that returns a JSON ...
