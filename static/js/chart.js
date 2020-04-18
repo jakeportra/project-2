@@ -1,5 +1,7 @@
 console.log("chart.js loaded")
 
+var myChart;
+
 d3.json("/data").then(function (data) {
 
     // ... and dump that JSON to the console for inspection
@@ -8,7 +10,6 @@ d3.json("/data").then(function (data) {
     // Next, pull out the keys and the values for graphing
 
     var country = data.map(data => data.country);
-    console.log(country);
     var beerServings = data.map(data => data.beer_servings);
     var wineServings = data.map(data => data.wine_servings);
     var spiritServings = data.map(data => data.spirit_servings);
@@ -66,7 +67,7 @@ d3.json("/data").then(function (data) {
     });
 
     var ctx = document.getElementById('myChart').getContext('2d');
-    var myChart = new Chart(ctx, {
+    myChart = new Chart(ctx, {
         type: 'horizontalBar',
         data: {
             labels: country,
@@ -478,3 +479,40 @@ d3.json("/data").then(function (data) {
         }
     }
 )});
+
+// initialize some variables
+var beerServings;
+var wineServings;
+var spiritServings;
+var totalAlcohol;
+
+d3.json("/data").then(function (data) {
+    beerServings = data.map(data => data.beer_servings);
+    wineServings = data.map(data => data.wine_servings);
+    spiritServings = data.map(data => data.spirit_servings);
+    totalAlcohol = data.map(data => data.total_litres_of_pure_alcohol);
+});
+
+function updateChartBeer() {
+    myChart.data.datasets[0].data = beerServings;
+    myChart.data.datasets[0].label = "Beer Servings Per Capita";
+    myChart.update();
+}
+
+function updateChartWine() {
+    myChart.data.datasets[0].data = wineServings;
+    myChart.data.datasets[0].label = "Wine Servings Per Capita";
+    myChart.update();
+}
+
+function updateChartSpirits() {
+    myChart.data.datasets[0].data = spiritServings;
+    myChart.data.datasets[0].label = "Spirits Servings Per Capita";
+    myChart.update();
+}
+
+function updateChartTotalAlcohol() {
+    myChart.data.datasets[0].data = totalAlcohol;
+    myChart.data.datasets[0].label = "Total Liters of Pure Alcohol Consumed Per Capita";
+    myChart.update();
+}

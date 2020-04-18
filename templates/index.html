@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>World Alcohol Consumption</title>
 
-  <!-- Favicon for our website (right now it only works with liveserver-->
+  <!-- Favicon for our website -->
   <link rel="shortcut icon" href="{{ url_for('static', filename='beer_favicon.png') }}" />
 
   <!-- Leaflet CSS -->
@@ -21,13 +21,29 @@
 </head>
 <body>
 
+  <h1 id="title">World Alcohol Consumption</h1>
   <!-- The div that holds our world map -->
   <div id="map"></div>
- 
+
+  <!-- Title for our pie chart -->
+  <h3 id="title">Total Worldwide Servings of Alcohol by Type</h1>
+
+  <!-- The div that holds our pie chart -->
+  <canvas id="boozePie" height="30%"></canvas>
+
+  <!-- The div for our hoverable dropdown -->
+  <div class="dropdown">
+    <button class="dropbtn">Alcohol Type</button>
+    <div class="dropdown-content">
+      <a class="btn" id="total-btn" onclick="updateChartTotalAlcohol()">Total Amount of Pure Alcohol</a>
+      <a class="btn" id="beer-btn" onclick="updateChartBeer()">Beer</a>
+      <a class="btn" id="wine-btn" onclick="updateChartWine()">Wine</a>
+      <a class="btn" id="spirits-btn" onclick="updateChartSpirits()">Spirits</a>
+    </div>
+  </div>
+
   <!-- The div that holds the chart.js plot-->
   <canvas id="myChart" width="70%" height="400px"></canvas>
-
-  <canvas id="boozePie" width="30%"></canvas>
 
   <!-- Leaflet.js -->
   <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
