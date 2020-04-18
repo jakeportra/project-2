@@ -29,7 +29,7 @@ def IndexRoute():
     webpage = render_template("index.html")
     return webpage
 
-@app.route("/data")
+@app.route("/geojson")
 def choroDict():
     ''' This function returns JSON of data '''
     session = Session(engine)
@@ -72,10 +72,23 @@ def choroDict():
 
     return jsonify(geo_data)
 
-@app.route("/country_data")
-def countryData():
-    something = "nothing"
-    return something
+@app.route("/data")
+def plotDict():
+    session = Session(engine)
+    results = session.query(Countries.country, Countries.beer_servings, Countries.spirit_servings, Countries.wine_servings, Countries.total_litres_of_pure_alcohol).all()
+    session.close()
+
+    country_data = []
+    for country, beer_servings, spirit_servings, wine_servings, total_litres_of_pure_alcohol in results:
+        dict = {}
+        dict["country"] = country
+        dict["beer_servings"] = beer_servings
+        dict["spirit_servings"] = spirit_servings
+        dict["wine_servings"] = wine_servings
+        dict["total_litres_of_pure_alcohol"] = total_litres_of_pure_alcohol
+        country_data.append(dict)
+        
+    return jsonify(country_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

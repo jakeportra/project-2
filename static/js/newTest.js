@@ -8,8 +8,11 @@ var Thunderforest_Outdoors = L.tileLayer('https://{s}.tile.thunderforest.com/out
 	maxZoom: 22
 }).addTo(map);
 
+// function to get country data from click
+
+
 // Query the endpoint that returns a JSON ...
-d3.json("/data").then(function (data) {
+d3.json("/geojson").then(function (data) {
 
     L.geoJson(data).addTo(map)
 
@@ -60,6 +63,7 @@ d3.json("/data").then(function (data) {
 
     function zoomToFeature(e) {
         map.fitBounds(e.target.getBounds());
+        
     }
 
     function onEachFeature(feature, layer) {
@@ -88,51 +92,68 @@ d3.json("/data").then(function (data) {
         this._div.innerHTML = '<h4>Total Litres of Alcohol Consumed per capita</h4>' +  (props ?
             '<b>' + props.name + '</b><br />' + props.total_litres_of_pure_alcohol + ' Total Litres of Alcohol'
             : 'Hover over a country');
+
     };
 
     info.addTo(map);
 });
 
+d3.json("/data").then(function (data) {
 
+    // ... and dump that JSON to the console for inspection
+    console.log(data); 
 
+    // Next, pull out the keys and the values for graphing
 
+    var country = data.map(data => data.country);
+    console.log(country);
+    var beerServings = data.map(data => data.beer_servings);
+    var wineServings = data.map(data => data.wine_servings);
+    var spiritServings = data.map(data => data.spirit_servings);
+    var total_liters = data.map(data => data.total_litres_of_pure_alcohol);
+    
+    // Initializes the page with a default plot
+    function init() {
+        data = [{
+        x: country,
+        y: total_liters,
+        type: "bar"
+    }];
+    
+        Plotly.newPlot("plot", data);
+    }
+    
+    // Call updatePlotly() when a change takes place to the DOM
+    d3.selectAll("#selDataset").on("change", updatePlotly);
 
-// // Mke the geoJSON layer accessible through the geojson variable
-// var geojson;
+    // This function is called when a dropdown menu item is selected
+    function updatePlotly() {
+        // Use D3 to select the dropdown menu
+        var dropdownMenu = d3.select("#selDataset");
+        // Assign the value of the dropdown menu option to a variable
+        var dataset = dropdownMenu.property("value");
 
-// // Listeners
-// function highlightFeature(e) {
-//     var layer = e.target;
+        // Initialize x and y arrays
+        var x = [];
+        var y = [];
 
-//     layer.setStyle({
-//         weight: 5,
-//         color: '#666',
-//         dashArray: '',
-//         fillOpacity: 0.7
-//     });
+        function chooseDataset(dataset) {
+            switch(dataset) {
+                case "dataset1":
+                    x = [1, 2, 3, 4, 5];
+                    y = [1, 2, 4, 8, 16];
+                    break;
+                case "dataset2":
+                    x = [10, 20, 30, 40, 50];
+                    y = [1, 10, 100, 1000, 10000];
+            }
+        }
 
-//     if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-//         layer.bringToFront();
-//     }
-// }
+        chooseDataset(dataset);
 
-// function resetHighlight(e) {
-//     geojson.resetStyle(e.target);
-// }
-
-// function zoomToFeature(e) {
-//     map.fitBounds(e.target.getBounds());
-// }
-
-// function onEachFeature(feature, layer) {
-//     layer.on({
-//         mouseover: highlightFeature,
-//         mouseout: resetHighlight,
-//         click: zoomToFeature
-//     });
-// }
-
-// geojson = L.geoJson(data, {
-//     style: style,
-//     onEachFeature: onEachFeature
-// }).addTo(map);
+        // Note the extra brackets around 'x' and 'y'
+        Plotly.restyle("plot", "x", [x]);
+        Plotly.restyle("plot", "y", [y]);
+    }
+    init();
+});
