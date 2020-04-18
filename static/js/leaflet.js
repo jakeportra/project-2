@@ -12,8 +12,6 @@ var Thunderforest_Outdoors = L.tileLayer('https://{s}.tile.thunderforest.com/out
 // Query the endpoint that returns a JSON ...
 d3.json("/geojson").then(function (data) {
 
-    L.geoJson(data).addTo(map)
-
     function getColor(t) {
         return t > 14 ? '#014636' :
                t > 12 ? '#016c59' :
@@ -118,4 +116,3 @@ d3.json("/geojson").then(function (data) {
 
     legend.addTo(map);
 });
-

@@ -12,7 +12,7 @@ function init() {
 }
   
 // Call updatePlotly() when a change takes place to the DOM
-d3.selectAll("#selDataset").on("change", updatePlotly);
+d3.selectAll("#leafletButton").on("change", updatePlotly);
 
 // This function is called when a dropdown menu item is selected
 function updatePlotly() {

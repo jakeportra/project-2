@@ -8,7 +8,6 @@ d3.json("/data").then(function (data) {
     console.log(data); 
 
     // Next, pull out the keys and the values for graphing
-
     var country = data.map(data => data.country);
     var beerServings = data.map(data => data.beer_servings);
     var wineServings = data.map(data => data.wine_servings);
@@ -26,10 +25,6 @@ d3.json("/data").then(function (data) {
     var spiritSum = spiritServings.reduce(function(a,b){
         return a + b;
     }, 0);
-
-    console.log(beerSum)
-    console.log(wineSum)
-    console.log(spiritSum)
 
     pieData = {
         datasets: [{
