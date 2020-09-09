@@ -15,4 +15,4 @@ Northern Africa and the Middle East consumed almost no alcohol.
 
 We created a website with interactive visualizations of the data. To view the website on your local server:
 1. Run the app.py file from your Terminal (Mac) or Git Bash (Windows) window.
-2. View the website in your browser by typing in the address that shows up in your Terminal/Git Bash when you run app.py. The address for your localhost is usually 127.0.0.1:5000
+2. View the website in your browser by entering the address displayed in your Terminal/Git Bash window. The address for localhost is usually 127.0.0.1.
